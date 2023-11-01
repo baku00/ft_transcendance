@@ -2,7 +2,7 @@
 	<div>
 		<input type="text" v-model="email" placeholder="Email">
 		<input type="text" v-model="password" placeholder="Mot de passe">
-		<button @click="create">Créers</button>
+		<button @click="create">Créer</button>
 		<ul>
 			<li v-for="user in users">{{ user.email }}</li>
 		</ul>
