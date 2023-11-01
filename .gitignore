@@ -2,3 +2,4 @@
 .vscode
 srcs/.env
 !srcs/requirements/api/site/.gitignore
+srcs/requirements/database
