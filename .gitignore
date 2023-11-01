@@ -1,0 +1,4 @@
+.idea
+.vscode
+srcs/.env
+!srcs/requirements/api/site/.gitignore

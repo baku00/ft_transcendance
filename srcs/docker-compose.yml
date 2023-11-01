@@ -1,0 +1,91 @@
+# Appel des Dockerfile
+version: '3.3'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: main/nginx
+    container_name: nginx
+    env_file:
+      - .env
+    networks:
+      - main
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+
+  client:
+    build: ./requirements/client
+    image: main/client
+    container_name: client
+    env_file:
+      - .env
+    volumes:
+      - client_data:/var/www/html
+    networks:
+      - main
+    ports:
+      - 3000:3000
+    restart: always
+
+  database:
+    image: postgres:15.4
+    container_name: database
+    env_file:
+      - .env
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    networks:
+      - main
+    ports:
+      - 5432:5432
+    restart: always
+
+  api:
+    build: ./requirements/api
+    image: main/api
+    container_name: api
+    depends_on:
+      - database
+    env_file:
+      - .env
+    volumes:
+      - api_data:/var/www/html
+    networks:
+      - main
+    ports:
+      - 8000:8000
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+
+networks:
+  main:
+    driver: bridge
+
+volumes:
+  database_data:
+    driver: local
+    driver_opts:
+      device: ${HOST_VOLUME_ROOT}/database
+      type: volume
+      o: bind
+  client_data:
+    driver: local
+    driver_opts:
+      device: ${HOST_VOLUME_ROOT}/client/sources
+      type: volume
+      o: bind
+  api_data:
+    driver: local
+    driver_opts:
+      device: ${HOST_VOLUME_ROOT}/api/sources
+      type: volume
+      o: bind

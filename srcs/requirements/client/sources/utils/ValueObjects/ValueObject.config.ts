@@ -1,0 +1,1 @@
+export const VALUE_NULL_OR_EMPTY_ERROR	= `La valeur est nulle ou vide`;
