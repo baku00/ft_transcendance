@@ -4,8 +4,8 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			BASE_URL: 'https://moneychill.ch',
-			API_URL: 'https://moneychill.ch/api',
+			BASE_URL: 'http://localhost',
+			API_URL: 'http://localhost/api',
 			LOGIN_PAGE: '/auth/login',
 			REGISTER_PAGE: '/auth/register',
 			AUTH_ROUTE: '/auth/',
@@ -44,5 +44,14 @@ sDHlvGzdIkE7O2sjl5DOpSnNSjItY032D0kC6oM1MbGpEhzqdBYwJyzoPi+Cz7qZ
 	},
 	devServer: {
 		port: 3000,
+	},
+
+	vite: {
+		server: {
+			hmr: {
+				clientPort: 3000,
+				host: 'localhost'
+			}
+		},
 	}
 });

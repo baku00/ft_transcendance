@@ -40,7 +40,7 @@ datas.value = {
 }
 
 async function submit() {
-	register(datas.value);
+	await register(datas.value);
 }
 
 </script>

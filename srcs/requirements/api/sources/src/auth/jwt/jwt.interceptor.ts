@@ -6,10 +6,8 @@ import { AppController } from 'src/app.controller';
 import { AuthController } from '../auth.controller';
 
 interface RequestDatas extends Request {
-	user: {
-		datas: PayloadDatas;
-		access_token?: string;
-	}
+	datas: PayloadDatas;
+	access_token?: string;
 }
 
 @Injectable()
@@ -18,7 +16,7 @@ export class JwtInterceptor implements NestInterceptor {
 		if (context.getClass().name == AuthController.name && context.getHandler().name == 'login')
 			return next.handle();
 		const user = context.switchToHttp().getRequest<RequestDatas>();
-		// const access_token = user?.access_token;
+		const access_token = user?.access_token;
 		return next.handle().pipe(map(
 			datas => {
 				return {datas};

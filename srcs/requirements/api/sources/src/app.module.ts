@@ -15,6 +15,7 @@ import { SetCookieMiddleware } from './auth/middleware/set-cookie.middleware';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { GatewayModule } from './gateway/gateway.module';
 import { ProfilesModule } from './profile/profile.module';
+import { MailModule } from './mail/mail.module';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ dotenv.config();
 		UsersModule,
 		AuthModule,
 		ProfilesModule,
+		MailModule,
 		ThrottlerModule.forRoot({
 			ttl: 60,
 			limit: 10,
@@ -55,10 +57,10 @@ dotenv.config();
 		// 	provide: APP_GUARD,
 		// 	useClass: PermissionGuard
 		// },
-		// {
-		// 	provide: APP_INTERCEPTOR,
-		// 	useClass: JwtInterceptor
-		// },
+		{
+			provide: APP_INTERCEPTOR,
+			useClass: JwtInterceptor
+		},
 		// {
 		// 	provide: APP_GUARD,
 		// 	useClass: ThrottlerGuard
